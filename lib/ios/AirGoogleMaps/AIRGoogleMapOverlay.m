@@ -25,6 +25,8 @@
 {
   if ((self = [super init])) {
     _overlay = [[GMSGroundOverlay alloc] init];
+    _bearing = 315;
+    _overlay.bearing = _bearing;
   }
   return self;
 }
@@ -71,6 +73,12 @@
                                                         coordinate:_northEast];
 
   _overlay.bounds = _overlayBounds;
+}
+
+- (void)setBearing:(CLLocationDirection)bearing
+{
+  _bearing = bearing;
+  _overlay.bearing = bearing;
 }
 
 @end

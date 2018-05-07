@@ -38,7 +38,7 @@ static NSString *const RCTMapViewKey = @"MapView";
 @end
 
 @implementation AIRMapManager
-  
+
 RCT_EXPORT_MODULE()
 
 - (UIView *)view
@@ -186,7 +186,10 @@ RCT_EXPORT_METHOD(animateToViewingAngle:(nonnull NSNumber *)reactTag
   }];
 }
 
-RCT_EXPORT_METHOD(animateToBearing:(nonnull NSNumber *)reactTag
+RCT_EXPORT_METHOD(animateTo
+
+
+  :(nonnull NSNumber *)reactTag
                   withBearing:(CGFloat)bearing
                   withDuration:(CGFloat)duration)
 {
@@ -334,7 +337,7 @@ RCT_EXPORT_METHOD(pointForCoordinate:(nonnull NSNumber *)reactTag
                                                              [coordinate[@"lng"] doubleValue]
                                                              )
                                               toPointToView:mapView];
-            
+
             resolve(@{
                       @"x": @(touchPoint.x),
                       @"y": @(touchPoint.y),
@@ -360,7 +363,7 @@ RCT_EXPORT_METHOD(coordinateForPoint:(nonnull NSNumber *)reactTag
                                                              [point[@"y"] doubleValue]
                                                              )
                                                  toCoordinateFromView:mapView];
-            
+
             resolve(@{
                       @"lat": @(coordinate.latitude),
                       @"lng": @(coordinate.longitude),
@@ -510,7 +513,7 @@ RCT_EXPORT_METHOD(coordinateForPoint:(nonnull NSNumber *)reactTag
                 }
             }
         }
-        
+
         if ([overlay isKindOfClass:[AIRMapOverlay class]]) {
             AIRMapOverlay *imageOverlay = (AIRMapOverlay*) overlay;
             if (MKMapRectContainsPoint(imageOverlay.boundingMapRect, mapPoint)) {
@@ -786,7 +789,7 @@ static int kDragCenterContext;
 - (void)mapViewWillStartRenderingMap:(AIRMap *)mapView
 {
     if (!mapView.hasStartedRendering) {
-      mapView.onMapReady(@{}); 
+      mapView.onMapReady(@{});
       mapView.hasStartedRendering = YES;
     }
     [mapView beginLoading];
