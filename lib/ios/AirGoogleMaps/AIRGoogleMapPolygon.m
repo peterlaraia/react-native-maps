@@ -16,6 +16,8 @@
     _polygon = [[AIRGMSPolygon alloc] init];
   }
 
+  _polygon.title = @"Hello world";
+
   return self;
 }
 
