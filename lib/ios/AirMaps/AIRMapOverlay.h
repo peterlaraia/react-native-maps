@@ -20,7 +20,7 @@
 @property (nonatomic, copy) NSString *imageSrc;
 @property (nonatomic, strong, readonly) UIImage *overlayImage;
 @property (nonatomic, copy) NSArray *boundsRect;
-@property (nonatomic, assign) NSInteger rotation;
+@property (nonatomic, assign) CLLocationDirection bearing;
 @property (nonatomic, assign) CGFloat transparency;
 @property (nonatomic, assign) NSInteger zIndex;
 

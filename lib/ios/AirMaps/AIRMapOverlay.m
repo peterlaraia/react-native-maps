@@ -40,7 +40,11 @@
                                                                      }
                                                                      dispatch_async(dispatch_get_main_queue(), ^{
                                                                          NSLog(@">>> IMAGE: %@", image);
-                                                                         weakSelf.overlayImage = image;
+                                                                         if (_bearing == 0) {
+                                                                           weakSelf.overlayImage = image;
+                                                                         } else {
+                                                                           weakSelf.overlayImage = [self _rotateImage:image angle:360 - _bearing];
+                                                                         }
                                                                          [weakSelf createOverlayRendererIfPossible];
                                                                          [weakSelf update];
                                                                      });
@@ -59,6 +63,21 @@
     _mapRect = MKMapRectMake(southWest.x, northEast.y, northEast.x - southWest.x, northEast.y - southWest.y);
 
     [self update];
+}
+
+- (UIImage *)_rotateImage:(UIImage *)image angle:(CGFloat)angle
+{
+  CGSize s = {image.size.width, image.size.height};
+  UIGraphicsBeginImageContextWithOptions(s, NO, 0.0f);
+  CGContextRef ctx = UIGraphicsGetCurrentContext();
+  CGContextTranslateCTM(ctx, 0,image.size.height);
+  CGContextScaleCTM(ctx, 1.0, -1.0);
+
+  CGContextRotateCTM(ctx, angle * M_PI / 180);
+  CGContextDrawImage(ctx, CGRectMake(0, 0, image.size.width, image.size.height), image.CGImage);
+  UIImage *newImage = UIGraphicsGetImageFromCurrentImageContext();
+  UIGraphicsEndImageContext();
+  return newImage;
 }
 
 - (void)createOverlayRendererIfPossible
